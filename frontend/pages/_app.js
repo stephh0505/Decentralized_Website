@@ -1,11 +1,16 @@
+
 import '../styles/globals.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ChatInterface from '../components/ChatInterface';
 
-/**
- * Custom App Component
- * Wraps all pages with global styles and providers
- */
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Component {...pageProps} />
+      <ToastContainer />
+      <ChatInterface />
+    </>
+  );
 }
-
 export default MyApp; 
