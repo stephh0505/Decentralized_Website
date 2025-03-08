@@ -40,19 +40,28 @@ const ChatInterface = () => {
     setIsLoading(true);
 
     try {
+      console.log('Sending message to backend:', userMessage);
       // Call backend API
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/chat`, { 
         message: userMessage 
       });
       
-      if (response.data.success) {
+      console.log('Received response from backend:', response.data);
+      
+      if (response.data.success && response.data.response) {
         // Add AI response to chat
         setMessages(prev => [...prev, { type: 'ai', content: response.data.response }]);
       } else {
-        throw new Error(response.data.error || 'Failed to get response');
+        console.error('Invalid response format:', response.data);
+        throw new Error('Invalid response from server');
       }
     } catch (error) {
-      console.error('Error sending message:', error);
+      console.error('Error details:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status
+      });
+      
       setMessages(prev => [...prev, { 
         type: 'error', 
         content: error.response?.data?.error || error.message || 'Sorry, I encountered an error. Please try again.' 

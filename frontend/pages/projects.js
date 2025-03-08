@@ -4,9 +4,12 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import Head from 'next/head';
 import Link from 'next/link';
 import ProjectCard from '../components/ProjectCard';
+import LoadingSpinner from '../components/LoadingSpinner';
+import ErrorMessage from '../components/ErrorMessage';
+import EmptyState from '../components/EmptyState';
+import Layout from '../components/Layout';
 import { getProjects } from '../utils/api';
 
 /**
@@ -69,24 +72,11 @@ export default function Projects() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      <Head>
-        <title>Browse Projects | GhostFund</title>
-        <meta name="description" content="Browse and fund anonymous projects on GhostFund" />
-      </Head>
-
-      {/* Header */}
-      <header className="bg-gray-800 py-6">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <h1 className="text-3xl font-bold mb-4 md:mb-0">Browse Projects</h1>
-            <Link href="/projects/new" className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded transition-colors duration-300">
-              Create Project
-            </Link>
-          </div>
-        </div>
-      </header>
-
+    <Layout
+      title="Browse Projects | GhostFund"
+      description="Browse and fund anonymous projects on GhostFund"
+      pageTitle="Browse Projects"
+    >
       {/* Filters and Search */}
       <section className="py-6 bg-gray-800 border-t border-gray-700">
         <div className="container mx-auto px-4">
@@ -134,39 +124,45 @@ export default function Projects() {
           {isLoading ? (
             // Loading state
             <div className="flex justify-center items-center py-20">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
+              <LoadingSpinner size="lg" text="Loading projects..." />
             </div>
           ) : error ? (
             // Error state
-            <div className="text-center py-20">
-              <p className="text-red-500 mb-4">{error}</p>
-              <button
-                onClick={() => window.location.reload()}
-                className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300"
-              >
-                Try Again
-              </button>
+            <div className="max-w-2xl mx-auto">
+              <ErrorMessage message={error} />
+              <div className="text-center mt-4">
+                <button
+                  onClick={() => window.location.reload()}
+                  className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300"
+                >
+                  Try Again
+                </button>
+              </div>
             </div>
           ) : filteredProjects.length === 0 ? (
             // No projects found
-            <div className="text-center py-20">
-              <p className="text-gray-400 mb-4">No projects found matching your criteria.</p>
-              {filter !== 'all' || searchTerm ? (
-                <button
-                  onClick={() => {
-                    setFilter('all');
-                    setSearchTerm('');
-                  }}
-                  className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300"
-                >
-                  Clear Filters
-                </button>
-              ) : (
-                <Link href="/projects/new" className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300">
-                  Create the First Project
-                </Link>
-              )}
-            </div>
+            <EmptyState 
+              message={
+                filter !== 'all' || searchTerm 
+                  ? "No projects found matching your criteria." 
+                  : "No projects have been created yet."
+              }
+              icon={searchTerm ? 'search' : 'projects'}
+              action={
+                filter !== 'all' || searchTerm 
+                  ? {
+                      text: "Clear Filters",
+                      onClick: () => {
+                        setFilter('all');
+                        setSearchTerm('');
+                      }
+                    }
+                  : {
+                      text: "Create the First Project",
+                      href: "/projects/new"
+                    }
+              }
+            />
           ) : (
             // Projects grid
             <>
@@ -182,15 +178,6 @@ export default function Projects() {
           )}
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-800 py-8 mt-auto">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-gray-400">
-            &copy; {new Date().getFullYear()} GhostFund. All rights reserved.
-          </p>
-        </div>
-      </footer>
-    </div>
+    </Layout>
   );
 } 

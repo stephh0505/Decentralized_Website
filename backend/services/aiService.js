@@ -132,14 +132,22 @@ exports.getChatResponse = async (message) => {
       throw new Error('Perplexity API key is not configured');
     }
 
+    console.log('Making request to Perplexity API');
     // Make API request to Perplexity
     const response = await axios.post(
-      `${PERPLEXITY_API_URL}/query`,
+      'https://api.perplexity.ai/chat/completions',
       {
-        model: 'llama-3-sonar-small-online',
-        prompt: message,
-        max_tokens: 500,
-        context: 'You are a helpful AI assistant for GhostFund, a privacy-focused crowdfunding platform. Help users with their questions about creating and funding projects, privacy features, and platform functionality.'
+        model: 'sonar-small-chat',
+        messages: [
+          {
+            role: 'system',
+            content: 'You are a helpful AI assistant for GhostFund, a privacy-focused crowdfunding platform. Help users with their questions about creating and funding projects, privacy features, and platform functionality.'
+          },
+          {
+            role: 'user',
+            content: message
+          }
+        ]
       },
       {
         headers: {
@@ -149,15 +157,21 @@ exports.getChatResponse = async (message) => {
       }
     );
 
+    console.log('Received response from Perplexity:', response.data);
+
+    if (!response.data || !response.data.choices || !response.data.choices[0]) {
+      throw new Error('Invalid response from Perplexity API');
+    }
+
     return {
       success: true,
-      text: response.data.text
+      text: response.data.choices[0].message.content
     };
   } catch (error) {
-    console.error('Error getting chat response:', error);
+    console.error('Error in getChatResponse:', error.response?.data || error.message);
     return {
       success: false,
-      error: error.message
+      error: error.response?.data?.error || error.message
     };
   }
 };
