@@ -137,7 +137,7 @@ exports.getChatResponse = async (message) => {
     const response = await axios.post(
       'https://api.perplexity.ai/chat/completions',
       {
-        model: 'sonar-small-chat',
+        model: 'sonar',
         messages: [
           {
             role: 'system',
@@ -157,15 +157,18 @@ exports.getChatResponse = async (message) => {
       }
     );
 
-    console.log('Received response from Perplexity:', response.data);
+    console.log('Raw Perplexity response:', JSON.stringify(response.data, null, 2));
 
-    if (!response.data || !response.data.choices || !response.data.choices[0]) {
-      throw new Error('Invalid response from Perplexity API');
+    if (!response.data || !response.data.choices || !response.data.choices[0] || !response.data.choices[0].message) {
+      throw new Error('Invalid response format from Perplexity API');
     }
+
+    const aiResponseText = response.data.choices[0].message.content;
+    console.log('Extracted AI response text:', aiResponseText);
 
     return {
       success: true,
-      text: response.data.choices[0].message.content
+      text: aiResponseText
     };
   } catch (error) {
     console.error('Error in getChatResponse:', error.response?.data || error.message);

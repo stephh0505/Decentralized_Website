@@ -48,12 +48,12 @@ const ChatInterface = () => {
       
       console.log('Received response from backend:', response.data);
       
-      if (response.data.success && response.data.response) {
+      if (response.data.success && typeof response.data.response === 'string') {
         // Add AI response to chat
         setMessages(prev => [...prev, { type: 'ai', content: response.data.response }]);
       } else {
         console.error('Invalid response format:', response.data);
-        throw new Error('Invalid response from server');
+        throw new Error('Invalid response format from server');
       }
     } catch (error) {
       console.error('Error details:', {
@@ -62,9 +62,10 @@ const ChatInterface = () => {
         status: error.response?.status
       });
       
+      const errorMessage = error.response?.data?.error || error.message || 'Sorry, I encountered an error. Please try again.';
       setMessages(prev => [...prev, { 
         type: 'error', 
-        content: error.response?.data?.error || error.message || 'Sorry, I encountered an error. Please try again.' 
+        content: errorMessage
       }]);
     } finally {
       setIsLoading(false);

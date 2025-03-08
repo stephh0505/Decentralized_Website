@@ -26,18 +26,18 @@ router.post('/', async (req, res) => {
 
     console.log('Calling Perplexity API with message:', message);
     // Get response from Perplexity API
-    const response = await aiService.getChatResponse(message);
-    console.log('Perplexity API response:', response);
+    const aiResponse = await aiService.getChatResponse(message);
+    console.log('Perplexity API response:', aiResponse);
 
-    if (!response.success) {
-      console.error('Perplexity API error:', response.error);
-      throw new Error(response.error);
+    if (!aiResponse.success) {
+      console.error('Perplexity API error:', aiResponse.error);
+      throw new Error(aiResponse.error);
     }
 
-    console.log('Sending successful response back to client');
+    console.log('Sending successful response back to client:', aiResponse.text);
     res.json({
       success: true,
-      response: response.text
+      response: aiResponse.text
     });
   } catch (error) {
     console.error('Chat API error:', error);
