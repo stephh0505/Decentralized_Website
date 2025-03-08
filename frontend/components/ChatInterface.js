@@ -27,6 +27,76 @@ const ChatInterface = () => {
     setIsOpen(!isOpen);
   };
 
+  // Convert markdown to HTML
+  const markdownToHtml = (text) => {
+    // Convert bold
+    text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    // Convert italic
+    text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    // Convert code blocks
+    text = text.replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>');
+    // Convert inline code
+    text = text.replace(/`(.*?)`/g, '<code>$1</code>');
+    // Convert lists
+    text = text.replace(/^\s*[-*+]\s+(.*)$/gm, '<li>$1</li>');
+    text = text.replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
+    // Convert headers
+    text = text.replace(/^### (.*$)/gm, '<h3>$1</h3>');
+    text = text.replace(/^## (.*$)/gm, '<h2>$1</h2>');
+    text = text.replace(/^# (.*$)/gm, '<h1>$1</h1>');
+    // Convert paragraphs
+    text = text.replace(/\n\n/g, '</p><p>');
+    text = `<p>${text}</p>`;
+    // Fix any double-wrapped paragraphs
+    text = text.replace(/<p><p>/g, '<p>');
+    text = text.replace(/<\/p><\/p>/g, '</p>');
+    
+    return text;
+  };
+
+  // Format message with citations
+  const formatMessageWithCitations = (text, citations) => {
+    if (!citations || !Array.isArray(citations) || citations.length === 0) {
+      return markdownToHtml(text);
+    }
+
+    // Sort citations by start_ix in descending order to avoid position shifts
+    const sortedCitations = [...citations].sort((a, b) => b.start_ix - a.start_ix);
+
+    // Convert markdown first
+    let formattedText = text;
+
+    // Add hyperlinks for citations
+    sortedCitations.forEach((citation, index) => {
+      if (citation.start_ix !== undefined && citation.end_ix !== undefined) {
+        const citationId = `citation-${index + 1}`;
+        const beforeText = formattedText.slice(0, citation.start_ix);
+        const citedText = formattedText.slice(citation.start_ix, citation.end_ix);
+        const afterText = formattedText.slice(citation.end_ix);
+
+        // Create hyperlinked text with citation
+        const linkedText = `<a href="${citation.url}" target="_blank" class="text-blue-400 hover:text-blue-300 border-b border-blue-400">${citedText}</a><sup><a href="#${citationId}" class="text-blue-400 hover:text-blue-300 ml-0.5">[${index + 1}]</a></sup>`;
+
+        formattedText = beforeText + linkedText + afterText;
+      }
+    });
+
+    // Convert markdown after adding citations
+    formattedText = markdownToHtml(formattedText);
+
+    // Add citations list at the bottom
+    formattedText += '<div class="mt-4 pt-2 border-t border-gray-600">';
+    sortedCitations.forEach((citation, index) => {
+      formattedText += `
+        <div id="citation-${index + 1}" class="mt-1 text-sm text-gray-400">
+          [${index + 1}] <a href="${citation.url}" target="_blank" class="text-blue-400 hover:text-blue-300 underline">${citation.title || citation.url}</a>
+        </div>`;
+    });
+    formattedText += '</div>';
+
+    return formattedText;
+  };
+
   // Handle sending messages
   const handleSendMessage = async (e) => {
     e.preventDefault();
@@ -49,8 +119,12 @@ const ChatInterface = () => {
       console.log('Received response from backend:', response.data);
       
       if (response.data.success && typeof response.data.response === 'string') {
-        // Add AI response to chat
-        setMessages(prev => [...prev, { type: 'ai', content: response.data.response }]);
+        // Add AI response to chat with citations
+        setMessages(prev => [...prev, { 
+          type: 'ai', 
+          content: response.data.response,
+          citations: response.data.citations
+        }]);
       } else {
         console.error('Invalid response format:', response.data);
         throw new Error('Invalid response format from server');
@@ -93,12 +167,10 @@ const ChatInterface = () => {
       {/* Chat Window */}
       {isOpen && (
         <div className="absolute bottom-16 right-0 w-96 bg-gray-800 rounded-lg shadow-xl overflow-hidden">
-          {/* Chat Header */}
           <div className="bg-gray-700 p-4 border-b border-gray-600">
             <h3 className="text-white font-semibold">GhostFund Assistant</h3>
           </div>
 
-          {/* Messages Container */}
           <div className="h-96 overflow-y-auto p-4 space-y-4">
             {messages.map((message, index) => (
               <div
@@ -114,7 +186,14 @@ const ChatInterface = () => {
                       : 'bg-gray-700 text-white'
                   }`}
                 >
-                  {message.content}
+                  <div
+                    className="prose prose-invert max-w-none"
+                    dangerouslySetInnerHTML={{
+                      __html: message.type === 'ai' && message.citations 
+                        ? formatMessageWithCitations(message.content, message.citations)
+                        : markdownToHtml(message.content)
+                    }}
+                  />
                 </div>
               </div>
             ))}
@@ -132,7 +211,6 @@ const ChatInterface = () => {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input Form */}
           <form onSubmit={handleSendMessage} className="p-4 border-t border-gray-600">
             <div className="flex space-x-2">
               <input

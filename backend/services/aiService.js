@@ -164,11 +164,14 @@ exports.getChatResponse = async (message) => {
     }
 
     const aiResponseText = response.data.choices[0].message.content;
+    const citations = response.data.choices[0].message.citations || [];
     console.log('Extracted AI response text:', aiResponseText);
+    console.log('Citations:', citations);
 
     return {
       success: true,
-      text: aiResponseText
+      text: aiResponseText,
+      citations: citations
     };
   } catch (error) {
     console.error('Error in getChatResponse:', error.response?.data || error.message);

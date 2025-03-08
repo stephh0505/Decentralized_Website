@@ -34,10 +34,15 @@ router.post('/', async (req, res) => {
       throw new Error(aiResponse.error);
     }
 
-    console.log('Sending successful response back to client:', aiResponse.text);
+    console.log('Sending successful response back to client:', {
+      text: aiResponse.text,
+      citations: aiResponse.citations
+    });
+    
     res.json({
       success: true,
-      response: aiResponse.text
+      response: aiResponse.text,
+      citations: aiResponse.citations
     });
   } catch (error) {
     console.error('Chat API error:', error);
