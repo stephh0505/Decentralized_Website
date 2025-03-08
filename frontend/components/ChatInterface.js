@@ -40,16 +40,22 @@ const ChatInterface = () => {
     setIsLoading(true);
 
     try {
-      // Call Perplexity API through your backend
-      const response = await axios.post('/api/chat', { message: userMessage });
+      // Call backend API
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/chat`, { 
+        message: userMessage 
+      });
       
-      // Add AI response to chat
-      setMessages(prev => [...prev, { type: 'ai', content: response.data.response }]);
+      if (response.data.success) {
+        // Add AI response to chat
+        setMessages(prev => [...prev, { type: 'ai', content: response.data.response }]);
+      } else {
+        throw new Error(response.data.error || 'Failed to get response');
+      }
     } catch (error) {
       console.error('Error sending message:', error);
       setMessages(prev => [...prev, { 
         type: 'error', 
-        content: 'Sorry, I encountered an error. Please try again.' 
+        content: error.response?.data?.error || error.message || 'Sorry, I encountered an error. Please try again.' 
       }]);
     } finally {
       setIsLoading(false);

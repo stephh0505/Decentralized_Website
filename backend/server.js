@@ -21,6 +21,7 @@ const blockchainService = require('./services/blockchainService');
 
 // Import routes
 const projectRoutes = require('./routes/projectRoutes');
+const chatRoutes = require('./routes/api/chat');
 
 // Initialize Express app
 const app = express();
@@ -44,14 +45,24 @@ try {
   console.warn('Running without blockchain service. Some features may not work.');
 }
 
+// CORS configuration
+const corsOptions = {
+  origin: process.env.ALLOWED_ORIGINS.split(','),
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
 // Middleware
-app.use(cors()); // Enable CORS for all routes
+app.use(cors(corsOptions)); // Enable CORS with configuration
 app.use(express.json()); // Parse JSON request bodies
 app.use(express.urlencoded({ extended: false })); // Parse URL-encoded request bodies
 app.use(morgan('dev')); // HTTP request logger
 
 // API Routes
 app.use('/api/projects', projectRoutes);
+app.use('/api/chat', chatRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
