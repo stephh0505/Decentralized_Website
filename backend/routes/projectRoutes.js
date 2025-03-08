@@ -35,4 +35,18 @@ router.get('/:projectId', projectController.getProjectById);
  */
 router.post('/fund', projectController.fundProject);
 
+/**
+ * @route   POST /api/projects/analyze
+ * @desc    Analyze a project description with AI
+ * @access  Public
+ */
+router.post('/analyze', projectController.analyzeProject);
+
+/**
+ * @route   POST /api/projects/suggestions
+ * @desc    Get suggestions for a project description
+ * @access  Public
+ */
+router.post('/suggestions', projectController.getProjectSuggestions);
+
 module.exports = router; 

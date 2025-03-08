@@ -20,6 +20,7 @@
   "author": "GhostFund Team",
   "license": "MIT",
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.16",
     "axios": "^1.6.2",
     "browserify-zlib": "^0.2.0",
     "crypto-browserify": "^3.12.1",
