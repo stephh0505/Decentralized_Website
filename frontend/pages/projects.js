@@ -80,10 +80,8 @@ export default function Projects() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <h1 className="text-3xl font-bold mb-4 md:mb-0">Browse Projects</h1>
-            <Link href="/projects/new">
-              <a className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded transition-colors duration-300">
-                Create Project
-              </a>
+            <Link href="/projects/new" className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded transition-colors duration-300">
+              Create Project
             </Link>
           </div>
         </div>
@@ -164,10 +162,8 @@ export default function Projects() {
                   Clear Filters
                 </button>
               ) : (
-                <Link href="/projects/new">
-                  <a className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300">
-                    Create the First Project
-                  </a>
+                <Link href="/projects/new" className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300">
+                  Create the First Project
                 </Link>
               )}
             </div>

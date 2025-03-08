@@ -26,10 +26,23 @@ const projectRoutes = require('./routes/projectRoutes');
 const app = express();
 
 // Connect to database
-connectDB();
+try {
+  connectDB();
+} catch (error) {
+  console.error('Failed to connect to database:', error);
+  console.warn('Running without database connection. Some features may not work.');
+}
 
 // Initialize blockchain service
-blockchainService.initialize();
+try {
+  const initialized = blockchainService.initialize();
+  if (!initialized) {
+    console.warn('Blockchain service not fully initialized. Running in development mode with limited functionality.');
+  }
+} catch (error) {
+  console.error('Failed to initialize blockchain service:', error);
+  console.warn('Running without blockchain service. Some features may not work.');
+}
 
 // Middleware
 app.use(cors()); // Enable CORS for all routes
@@ -70,5 +83,5 @@ const PORT = process.env.PORT || 5000;
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+  console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
 }); 

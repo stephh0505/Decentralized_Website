@@ -26,6 +26,22 @@ let wallet;
  */
 exports.initialize = () => {
   try {
+    // Check if required environment variables are set and valid
+    if (!INFURA_API_KEY || INFURA_API_KEY === 'your_infura_api_key') {
+      console.warn('Warning: INFURA_API_KEY is not configured properly. Using development mode.');
+      return false;
+    }
+    
+    if (!PRIVATE_KEY || PRIVATE_KEY === 'your_private_key_here') {
+      console.warn('Warning: PRIVATE_KEY is not configured properly. Using development mode.');
+      return false;
+    }
+    
+    if (!CONTRACT_ADDRESS || CONTRACT_ADDRESS === 'your_contract_address_here') {
+      console.warn('Warning: CONTRACT_ADDRESS is not configured properly. Using development mode.');
+      return false;
+    }
+    
     // Connect to Ethereum network via Infura
     provider = new ethers.providers.JsonRpcProvider(
       `https://sepolia.infura.io/v3/${INFURA_API_KEY}`

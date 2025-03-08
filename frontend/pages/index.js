@@ -39,15 +39,11 @@ export default function Home() {
               Support causes without revealing your identity.
             </p>
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-              <Link href="/projects">
-                <a className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300">
-                  Browse Projects
-                </a>
+              <Link href="/projects" className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300">
+                Browse Projects
               </Link>
-              <Link href="/projects/new">
-                <a className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300">
-                  Start a Project
-                </a>
+              <Link href="/projects/new" className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300">
+                Start a Project
               </Link>
             </div>
           </div>
@@ -162,10 +158,8 @@ export default function Home() {
           <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
             Join the future of private, decentralized crowdfunding today.
           </p>
-          <Link href="/projects">
-            <a className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300">
-              Explore Projects
-            </a>
+          <Link href="/projects" className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300">
+            Explore Projects
           </Link>
         </div>
       </section>
