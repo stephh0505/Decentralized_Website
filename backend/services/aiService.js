@@ -122,6 +122,47 @@ exports.generateProjectSuggestions = async (projectDescription) => {
 };
 
 /**
+ * Get a response from the chat AI
+ * @param {string} message - The user's message
+ * @returns {Promise<Object>} - Chat response
+ */
+exports.getChatResponse = async (message) => {
+  try {
+    if (!PERPLEXITY_API_KEY) {
+      throw new Error('Perplexity API key is not configured');
+    }
+
+    // Make API request to Perplexity
+    const response = await axios.post(
+      `${PERPLEXITY_API_URL}/query`,
+      {
+        model: 'llama-3-sonar-small-online',
+        prompt: message,
+        max_tokens: 500,
+        context: 'You are a helpful AI assistant for GhostFund, a privacy-focused crowdfunding platform. Help users with their questions about creating and funding projects, privacy features, and platform functionality.'
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${PERPLEXITY_API_KEY}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+
+    return {
+      success: true,
+      text: response.data.text
+    };
+  } catch (error) {
+    console.error('Error getting chat response:', error);
+    return {
+      success: false,
+      error: error.message
+    };
+  }
+};
+
+/**
  * Helper function to parse risk score from AI response
  * @param {string} analysisText - The raw analysis text
  * @returns {number} - Extracted risk score (1-10)
