@@ -5,20 +5,17 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Head from 'next/head';
+import Layout from '../components/Layout';
 
 /**
  * Home component renders the landing page
  */
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      <Head>
-        <title>GhostFund | Anonymous Crowdfunding</title>
-        <meta name="description" content="Decentralized, anonymous crowdfunding platform powered by blockchain technology" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
+    <Layout
+      title="GhostFund | Anonymous Crowdfunding"
+      description="Decentralized, anonymous crowdfunding platform powered by blockchain technology"
+    >
       {/* Hero Section */}
       <section className="relative py-20">
         {/* Background gradient */}
@@ -163,30 +160,6 @@ export default function Home() {
           </Link>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 py-8">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-4 md:mb-0">
-              <p className="text-gray-400">
-                &copy; {new Date().getFullYear()} GhostFund. All rights reserved.
-              </p>
-            </div>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-                Privacy Policy
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-                Terms of Service
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-                Contact
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
+    </Layout>
   );
 } 

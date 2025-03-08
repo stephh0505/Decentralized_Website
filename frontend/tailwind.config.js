@@ -6,19 +6,43 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
-        gray: {
-          700: '#374151',
-          800: '#1f2937',
-          900: '#111827',
+      typography: {
+        DEFAULT: {
+          css: {
+            color: '#e2e8f0',
+            a: {
+              color: '#3b82f6',
+              '&:hover': {
+                color: '#60a5fa',
+              },
+            },
+            h1: {
+              color: '#f8fafc',
+            },
+            h2: {
+              color: '#f8fafc',
+            },
+            h3: {
+              color: '#f8fafc',
+            },
+            h4: {
+              color: '#f8fafc',
+            },
+            strong: {
+              color: '#f8fafc',
+            },
+            code: {
+              color: '#f8fafc',
+            },
+            blockquote: {
+              color: '#cbd5e1',
+            },
+          },
         },
-        green: {
-          500: '#22c55e',
-          600: '#16a34a',
-          700: '#15803d',
-        }
-      }
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 } 
