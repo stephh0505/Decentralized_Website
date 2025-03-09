@@ -110,7 +110,7 @@ export default function Projects() {
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold gradient-text">Projects</h1>
           <Link
-            href="/projects/create"
+            href="/projects/new"
             className="gradient-bg text-white px-4 py-2 rounded-lg transition-all duration-300"
           >
             Create Project

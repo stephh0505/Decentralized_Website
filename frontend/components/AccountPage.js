@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,6 +9,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
+import dynamic from 'next/dynamic';
 
 // Register ChartJS components
 ChartJS.register(
@@ -20,6 +20,12 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend
+);
+
+// Dynamically import the Line component to avoid SSR issues
+const LineChart = dynamic(
+  () => import('react-chartjs-2').then((mod) => mod.Line),
+  { ssr: false }
 );
 
 const AccountPage = () => {
@@ -232,7 +238,7 @@ const AccountPage = () => {
       <div className="bg-gray-800 rounded-lg p-6">
         <h2 className="text-2xl font-semibold mb-4 text-white">Earnings Overview</h2>
         <div className="h-[400px] w-full">
-          <Line data={chartData} options={chartOptions} />
+          {typeof window !== 'undefined' && <LineChart data={chartData} options={chartOptions} />}
         </div>
       </div>
     </div>

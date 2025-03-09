@@ -18,9 +18,9 @@ const Header = () => {
               <ul className="flex items-center space-x-8">
                 <li>
                   <Link 
-                    href="/projects/create" 
+                    href="/projects/new" 
                     className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-base hover:bg-gray-800 transition-all duration-300 ${
-                      router.pathname === '/projects/create' ? 'gradient-text' : 'hover:gradient-text'
+                      router.pathname === '/projects/new' ? 'gradient-text' : 'hover:gradient-text'
                     }`}
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
