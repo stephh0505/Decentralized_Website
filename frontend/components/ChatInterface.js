@@ -168,7 +168,7 @@ const ChatInterface = () => {
       {isOpen && (
         <div className="absolute bottom-16 right-0 w-96 bg-gray-800 rounded-lg shadow-xl overflow-hidden">
           <div className="bg-gray-700 p-4 border-b border-gray-600">
-            <h3 className="text-white font-semibold">GhostFund Assistant</h3>
+            <h3 className="gradient-text font-semibold">GhostFund Assistant</h3>
           </div>
 
           <div className="h-96 overflow-y-auto p-4 space-y-4">

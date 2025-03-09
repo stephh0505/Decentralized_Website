@@ -63,21 +63,15 @@ const Layout = ({
       </main>
       
       {/* Footer */}
-      <footer className="bg-gray-800 py-6 shadow-inner">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-gray-400">
-            &copy; {new Date().getFullYear()} GhostFund. All rights reserved.
-          </p>
-          <div className="flex justify-center mt-3 space-x-4">
-            <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
-              Privacy Policy
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
-              Terms of Service
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
-              Contact
-            </a>
+      <footer className="bg-gray-900 border-t border-gray-800">
+        <div className="container mx-auto px-6 py-8">
+          <div className="flex flex-col items-center">
+            <Link href="/" className="text-2xl font-bold gradient-text mb-4">
+              GhostFund
+            </Link>
+            <p className="text-gray-400 text-sm text-center">
+              &copy; {new Date().getFullYear()} <span className="gradient-text">GhostFund</span>. All rights reserved.
+            </p>
           </div>
         </div>
       </footer>

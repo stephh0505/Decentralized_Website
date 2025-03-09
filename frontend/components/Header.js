@@ -11,7 +11,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo and main navigation */}
           <div className="flex items-center">
-            <Link href="/" className="text-2xl font-bold text-green-500 hover:text-green-400 transition-colors duration-300">
+            <Link href="/" className="text-3xl font-bold gradient-text tracking-tight">
               GhostFund
             </Link>
             <nav className="ml-12">
@@ -19,8 +19,8 @@ const Header = () => {
                 <li>
                   <Link 
                     href="/projects/create" 
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-base hover:bg-gray-800 hover:text-green-500 transition-all duration-300 ${
-                      router.pathname === '/projects/create' ? 'bg-gray-800 text-green-500' : ''
+                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-base hover:bg-gray-800 transition-all duration-300 ${
+                      router.pathname === '/projects/create' ? 'gradient-text' : 'hover:gradient-text'
                     }`}
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -32,8 +32,8 @@ const Header = () => {
                 <li>
                   <Link 
                     href="/account" 
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-base hover:bg-gray-800 hover:text-green-500 transition-all duration-300 ${
-                      router.pathname === '/account' ? 'bg-gray-800 text-green-500' : ''
+                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-base hover:bg-gray-800 transition-all duration-300 ${
+                      router.pathname === '/account' ? 'gradient-text' : 'hover:gradient-text'
                     }`}
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -45,8 +45,8 @@ const Header = () => {
                 <li>
                   <Link 
                     href="/projects" 
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-base hover:bg-gray-800 hover:text-green-500 transition-all duration-300 ${
-                      router.pathname === '/projects' ? 'bg-gray-800 text-green-500' : ''
+                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-base hover:bg-gray-800 transition-all duration-300 ${
+                      router.pathname === '/projects' ? 'gradient-text' : 'hover:gradient-text'
                     }`}
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -58,8 +58,8 @@ const Header = () => {
                 <li>
                   <Link 
                     href="/explore" 
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-base hover:bg-gray-800 hover:text-green-500 transition-all duration-300 ${
-                      router.pathname === '/explore' ? 'bg-gray-800 text-green-500' : ''
+                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-base hover:bg-gray-800 transition-all duration-300 ${
+                      router.pathname === '/explore' ? 'gradient-text' : 'hover:gradient-text'
                     }`}
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -74,7 +74,7 @@ const Header = () => {
 
           {/* Right side actions */}
           <div className="flex items-center space-x-4">
-            <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center space-x-2">
+            <button className="gradient-bg text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 flex items-center space-x-2">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>

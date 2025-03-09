@@ -21,9 +21,9 @@ export default function Home() {
           <div className="relative z-10 pb-8 bg-gray-900 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
             <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
               <div className="sm:text-center lg:text-left">
-                <h1 className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
-                  <span className="block">Welcome to</span>
-                  <span className="block text-green-500">GhostFund</span>
+                <h1 className="text-5xl font-bold mb-4">
+                  Welcome to{' '}
+                  <span className="gradient-text">GhostFund</span>
                 </h1>
                 <p className="mt-3 text-base text-gray-300 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
                   The privacy-focused crowdfunding platform for your next big project.
@@ -143,7 +143,9 @@ export default function Home() {
       {/* Features Section */}
       <section className="py-16 bg-gray-800">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Why Choose GhostFund?</h2>
+          <h2 className="text-3xl font-bold text-center mb-12 gradient-text">
+            Why Choose GhostFund?
+          </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Feature 1 */}

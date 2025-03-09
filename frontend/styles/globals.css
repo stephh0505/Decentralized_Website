@@ -8,6 +8,20 @@
   --background-end-rgb: 17, 24, 39;
 }
 
+/* Custom gradient classes */
+.gradient-text {
+  @apply text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500;
+}
+
+.gradient-bg {
+  @apply bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700;
+}
+
+.gradient-border {
+  background: linear-gradient(to right, #4ade80, #3b82f6);
+  background-clip: padding-box;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
