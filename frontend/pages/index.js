@@ -5,47 +5,140 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Layout from '../components/Layout';
+import { useRouter } from 'next/router';
 
 /**
  * Home component renders the landing page
  */
 export default function Home() {
+  const router = useRouter();
+
   return (
-    <Layout
-      title="GhostFund | Anonymous Crowdfunding"
-      description="Decentralized, anonymous crowdfunding platform powered by blockchain technology"
-    >
+    <div className="min-h-screen bg-gray-900">
       {/* Hero Section */}
-      <section className="relative py-20">
-        {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-800 to-gray-900"></div>
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="flex flex-col items-center text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">
-                GhostFund
-              </span>
-            </h1>
-            <p className="text-2xl md:text-3xl text-gray-300 mb-8 max-w-3xl">
-              Anonymous crowdfunding for projects that need privacy
-            </p>
-            <p className="text-gray-400 mb-10 max-w-2xl">
-              Fund projects anonymously using blockchain technology and privacy-preserving tools.
-              Support causes without revealing your identity.
-            </p>
-            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-              <Link href="/projects" className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300">
-                Browse Projects
-              </Link>
-              <Link href="/projects/new" className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300">
-                Start a Project
-              </Link>
+      <div className="relative overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="relative z-10 pb-8 bg-gray-900 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+            <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+              <div className="sm:text-center lg:text-left">
+                <h1 className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
+                  <span className="block">Welcome to</span>
+                  <span className="block text-green-500">GhostFund</span>
+                </h1>
+                <p className="mt-3 text-base text-gray-300 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                  The privacy-focused crowdfunding platform for your next big project.
+                </p>
+                <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                  <div className="rounded-md shadow">
+                    <Link
+                      href="/projects/create"
+                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 md:py-4 md:text-lg md:px-10"
+                    >
+                      Create Project
+                    </Link>
+                  </div>
+                  <div className="mt-3 sm:mt-0 sm:ml-3">
+                    <Link
+                      href="/account"
+                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-green-600 bg-gray-800 hover:bg-gray-700 md:py-4 md:text-lg md:px-10"
+                    >
+                      Manage Account
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Access Section */}
+      <div className="bg-gray-800">
+        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {/* Account Card */}
+            <div className="bg-gray-900 rounded-lg shadow-lg overflow-hidden">
+              <div className="px-6 py-8">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0 bg-green-500 rounded-md p-3">
+                    <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                  </div>
+                  <div className="ml-4">
+                    <h3 className="text-lg font-medium text-white">Account Dashboard</h3>
+                    <p className="mt-2 text-base text-gray-300">
+                      Manage your wallet, view owned projects, and track earnings.
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-6">
+                  <Link
+                    href="/account"
+                    className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700"
+                  >
+                    Go to Account
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Projects Card */}
+            <div className="bg-gray-900 rounded-lg shadow-lg overflow-hidden">
+              <div className="px-6 py-8">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0 bg-green-500 rounded-md p-3">
+                    <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                  </div>
+                  <div className="ml-4">
+                    <h3 className="text-lg font-medium text-white">Your Projects</h3>
+                    <p className="mt-2 text-base text-gray-300">
+                      View and manage your existing projects.
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-6">
+                  <Link
+                    href="/projects"
+                    className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700"
+                  >
+                    View Projects
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Explore Card */}
+            <div className="bg-gray-900 rounded-lg shadow-lg overflow-hidden">
+              <div className="px-6 py-8">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0 bg-green-500 rounded-md p-3">
+                    <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </div>
+                  <div className="ml-4">
+                    <h3 className="text-lg font-medium text-white">Explore</h3>
+                    <p className="mt-2 text-base text-gray-300">
+                      Discover new projects to support.
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-6">
+                  <Link
+                    href="/explore"
+                    className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700"
+                  >
+                    Explore Projects
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Features Section */}
       <section className="py-16 bg-gray-800">
@@ -155,11 +248,14 @@ export default function Home() {
           <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
             Join the future of private, decentralized crowdfunding today.
           </p>
-          <Link href="/projects" className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300">
+          <Link 
+            href="/projects" 
+            className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300"
+          >
             Explore Projects
           </Link>
         </div>
       </section>
-    </Layout>
+    </div>
   );
 } 

@@ -1,7 +1,21 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 17, 24, 39;
+  --background-end-rgb: 17, 24, 39;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-end-rgb))
+  );
+}
 
 /* Custom global styles */
 html,
@@ -25,18 +39,18 @@ a {
 
 /* Custom scrollbar for dark theme */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1f2937; /* bg-gray-800 */
+  background: rgb(31, 41, 55);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #4b5563; /* bg-gray-600 */
-  border-radius: 5px;
+  background: rgb(55, 65, 81);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6b7280; /* bg-gray-500 */
+  background: rgb(75, 85, 99);
 } 
